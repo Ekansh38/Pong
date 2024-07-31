@@ -40,7 +40,16 @@ This is a Pong clone with a robot that plays against you almost perfectly.
 
 ## Usage
 
+You could play against the AI to see if you can win or not let the AI win. The AI is almost perfect and will not let you win easily.
+
+![Screenshot](./images/Screenshot.png)
+
 ## Features
+
+- Play against the AI
+- AI is almost perfect
+- Score is displayed on the screen
+- Game Over screen
 
 ## Contributing
 
