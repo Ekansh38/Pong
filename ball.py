@@ -1,3 +1,6 @@
+import math
+import random
+
 import pygame
 from pygame.math import Vector2
 
@@ -15,11 +18,24 @@ class Ball:
     def set_pos(self):
         self.pos = Vector2(
             self.screen.get_width() / 2 - self.radius / 2,
-            -10,
+            self.screen.get_height() / 2 - self.radius / 2,
         )
 
     def set_vel(self):
-        self.vel = Vector2(self.speed, self.speed)
+        while True:
+            angle = random.uniform(-50, 50)
+            if 30 < abs(angle):
+                break
+
+        angle_rad = math.radians(angle)
+        direction = pygame.math.Vector2(math.cos(angle_rad), math.sin(angle_rad))
+
+        if random.choice([True, False]):
+            direction.x *= -1
+
+        direction.normalize_ip()
+
+        self.vel = direction * self.speed
 
     def draw(self):
         pygame.draw.ellipse(

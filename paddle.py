@@ -30,6 +30,14 @@ class Paddle:
                 and self.ball.pos.y < self.pos.y + self.height
             ):
                 self.ball.vel.x *= -1
+
+            # Check for the top and bottom of the paddle
+            elif (
+                self.ball.pos.y + self.ball.radius >= self.pos.y
+                and self.ball.pos.y - self.ball.radius <= self.pos.y + self.height
+                and self.ball.pos.x <= self.pos.x + self.width
+            ):
+                self.ball.vel.y *= -1
         elif self.side == "right":
             if (
                 self.ball.pos.x + self.ball.radius >= self.pos.x - 5
@@ -37,6 +45,14 @@ class Paddle:
                 and self.ball.pos.y < self.pos.y + self.height
             ):
                 self.ball.vel.x *= -1
+
+            # Check for the top and bottom of the paddle
+            elif (
+                self.ball.pos.y + self.ball.radius >= self.pos.y
+                and self.ball.pos.y - self.ball.radius <= self.pos.y + self.height
+                and self.ball.pos.x + self.ball.radius >= self.pos.x
+            ):
+                self.ball.vel.y *= -1
 
     def check_bounds(self):
         if self.pos.y < 0:
