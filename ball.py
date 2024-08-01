@@ -51,4 +51,4 @@ class Ball:
         self.check_bounds()
         self.draw()
         self.pos += self.vel
-        self.speed += 0.0009
+        self.speed += 0.002

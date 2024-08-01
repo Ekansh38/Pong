@@ -20,7 +20,7 @@ class Paddle:
         self.draw()
         self.check_bounds()
         self.ball_collision()
-        self.speed += 0.0009
+        self.speed += 0.002
 
     def ball_collision(self):
         if self.side == "left":
@@ -32,7 +32,7 @@ class Paddle:
                 self.ball.vel.x *= -1
         elif self.side == "right":
             if (
-                self.ball.pos.x + self.ball.radius >= self.pos.x
+                self.ball.pos.x + self.ball.radius >= self.pos.x - 5
                 and self.ball.pos.y > self.pos.y
                 and self.ball.pos.y < self.pos.y + self.height
             ):
@@ -45,7 +45,7 @@ class Paddle:
             self.pos.y = self.screen.get_height() - self.height
 
     def set_pos(self):
-        margin = 15
+        margin = -9
         if self.side == "left":
             self.pos = Vector2(margin, self.screen.get_height() / 2 - self.height / 2)
         elif self.side == "right":

@@ -17,9 +17,9 @@ pygame.display.set_caption(TITLE)
 clock = pygame.time.Clock()
 running = True
 
-ball = Ball(screen, 20, 5)
-paddle_left = Paddle(screen, "left", 5, ball)
-paddle_right = Paddle(screen, "right", 5, ball)
+ball = Ball(screen, 20, 6)
+paddle_left = Paddle(screen, "left", 8, ball)
+paddle_right = Paddle(screen, "right", 8, ball)
 left_score = 0
 right_score = 0
 
