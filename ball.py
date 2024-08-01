@@ -23,8 +23,8 @@ class Ball:
 
     def set_vel(self):
         while True:
-            angle = random.uniform(-50, 50)
-            if 30 < abs(angle):
+            angle = random.uniform(-45, 45)
+            if 20 < abs(angle):
                 break
 
         angle_rad = math.radians(angle)
@@ -67,4 +67,3 @@ class Ball:
         self.check_bounds()
         self.draw()
         self.pos += self.vel
-        self.speed += 0.002

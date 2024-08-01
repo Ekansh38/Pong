@@ -1,3 +1,4 @@
+import math
 import time
 
 import pygame
@@ -22,38 +23,6 @@ class Paddle:
         self.ball_collision()
         self.speed += 0.002
 
-    def ball_collision(self):
-        if self.side == "left":
-            if (
-                self.ball.pos.x <= self.pos.x + self.width
-                and self.ball.pos.y > self.pos.y
-                and self.ball.pos.y < self.pos.y + self.height
-            ):
-                self.ball.vel.x *= -1
-
-            # Check for the top and bottom of the paddle
-            elif (
-                self.ball.pos.y + self.ball.radius >= self.pos.y
-                and self.ball.pos.y - self.ball.radius <= self.pos.y + self.height
-                and self.ball.pos.x <= self.pos.x + self.width
-            ):
-                self.ball.vel.y *= -1
-        elif self.side == "right":
-            if (
-                self.ball.pos.x + self.ball.radius >= self.pos.x - 5
-                and self.ball.pos.y > self.pos.y
-                and self.ball.pos.y < self.pos.y + self.height
-            ):
-                self.ball.vel.x *= -1
-
-            # Check for the top and bottom of the paddle
-            elif (
-                self.ball.pos.y + self.ball.radius >= self.pos.y
-                and self.ball.pos.y - self.ball.radius <= self.pos.y + self.height
-                and self.ball.pos.x + self.ball.radius >= self.pos.x
-            ):
-                self.ball.vel.y *= -1
-
     def check_bounds(self):
         if self.pos.y < 0:
             self.pos.y = 0
@@ -61,7 +30,7 @@ class Paddle:
             self.pos.y = self.screen.get_height() - self.height
 
     def set_pos(self):
-        margin = -9
+        margin = 30
         if self.side == "left":
             self.pos = Vector2(margin, self.screen.get_height() / 2 - self.height / 2)
         elif self.side == "right":
@@ -69,6 +38,37 @@ class Paddle:
                 self.screen.get_width() - margin - self.width,
                 self.screen.get_height() / 2 - self.height / 2,
             )
+
+    def ball_collision(self):
+        if self.side == "left":
+            # Check collision with left paddle
+            if (
+                self.ball.pos.x <= self.pos.x + self.width
+                and self.pos.y <= self.ball.pos.y <= self.pos.y + self.height
+            ):
+                diff = self.ball.pos.y - (self.pos.y + self.height / 2)
+                angle = math.radians(diff * 90 / self.height)
+                vel = Vector2(math.cos(angle), math.sin(angle))
+                if self.ball.vel.length() < self.speed * 3:
+                    vel.scale_to_length(self.ball.vel.length() * 1.1)
+                else:
+                    vel.scale_to_length(self.ball.vel.length())
+                self.ball.vel = vel
+
+        elif self.side == "right":
+            # Check collision with right paddle
+            if (
+                self.ball.pos.x + self.ball.radius >= self.pos.x
+                and self.pos.y <= self.ball.pos.y <= self.pos.y + self.height
+            ):
+                diff = self.ball.pos.y - (self.pos.y + self.height / 2)
+                angle = math.radians(180 - diff * 90 / self.height)
+                vel = Vector2(math.cos(angle), math.sin(angle))
+                if self.ball.vel.length() < self.speed * 3:
+                    vel.scale_to_length(self.ball.vel.length() * 1.1)
+                else:
+                    vel.scale_to_length(self.ball.vel.length())
+                self.ball.vel = vel
 
     def check_input(self):
         keys = pygame.key.get_pressed()
